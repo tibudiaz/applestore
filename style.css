@@ -16,13 +16,10 @@ body {
 
 /* area tienda */
 .venta{
-  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
+  margin: 0 auto;
+  margin-left: 34px;
 }
 .card{
   text-align: center;
@@ -167,7 +164,8 @@ body {
 .info1{
   color: #d1cbcb;
   font-size: 100px;
-  margin: 0px 5px;
+  margin: 0px 30px;
+  text-align: center;
 
 }
 .info3{
@@ -185,8 +183,7 @@ body {
 .grid2{
   display: flex;
   flex-direction: column-reverse;
-  justify-content: center;
-  margin: 0 auto;
+
 }
 .propaganda3{
   width: 90%;
@@ -194,8 +191,9 @@ body {
 }
 .propaganda4{
   width: 50%;
-  margin: 0 300px;
+  margin: 0 auto;
 }
+
 .dinamic{
   margin-top: 10%;
   width: 50%;
@@ -221,7 +219,7 @@ body {
 .entrada1.visible {
   opacity: 1;
   transform: translateY(0);
-  font-size: 90px;
+  font-size: 130px;
   color: white;
   text-align: center;
 }
@@ -235,7 +233,7 @@ body {
 .entrada2.visible {
   opacity: 1;
   transform: translateY(0);
-  font-size: 90px;
+  font-size: 130px;
   color: white;
   text-align: center;
 }
@@ -278,10 +276,10 @@ body {
     right: 300px;
   }
   .entrada1.visible{
-    font-size: 50px;
+    font-size: 90px;
   }
   .entrada2.visible{
-    font-size: 50px;
+    font-size: 90px;
   }
   .info1{
     margin: 0 auto;
