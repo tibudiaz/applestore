@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <title>Apple store RC</title>
-    <link rel="preload" as="image" href="assets/img/logo2oro.jpg">
-    <link rel="preload" as="image" href="assets/img/logo2plata.jpg">
-    <link rel="preload" as="image" href="assets/img/logo2negro.jpg">
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-database.js"></script>
+
   </head>
   <body>
 
@@ -130,37 +130,16 @@
     
     <p class="entrada2">iPhone Usados</p>
 
-    <section class="venta">
-      <div class="card">
-      <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-      <p>iPhone 13 pro max</p>
-              <button class="btn-comprar">Comprar</button>   
-      </div>
-      <div class="card">
-        <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-        <p>iPhone 13 pro max</p>
-        <button class="btn-comprar">Comprar</button>  
-        </div>
-        <div class="card">
-          <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-          <p>iPhone 13 pro max</p>
-                  <button class="btn-comprar">Comprar</button>   
-          </div>
-          <div class="card">
-            <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-            <p>iPhone 13 pro max</p>
-                    <button class="btn-comprar">Comprar</button>   
-            </div>
-            <div class="card">
-              <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-              <p>iPhone 13 pro max</p>
-                      <button class="btn-comprar">Comprar</button>   
-              </div>
     </section>
+    <section id="catalog">
+    </section>
+
+
     <footer>
       <p>&copy; 2023 Apple Store Rc</p>
     </footer>
-    
+
+    <script src="assets/js/catalogo.js"></script>
     <script src="assets/js/main.js"></script>
   </body>
 </html>

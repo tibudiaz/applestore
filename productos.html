@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-database.js"></script>
+
+</head>
+<body>
+
+<!-- HTML for the product page -->
+<form class="form-product">
+    <div>
+      <label for="product-name">Nombre del producto:</label>
+      <input type="text" id="product-name" name="product-name">
+    </div>
+    <div>
+        <label for="product-price">Precio del producto:</label>
+        <input type="text" id="product-price" name="product-price">
+      </div>
+    <div>
+      <label for="product-image">Imagen del producto:</label>
+      <input type="text" id="product-image" name="product-image">
+    </div>
+    <button type="submit">Agregar al carrito</button>
+  </form>
+  
+  <!-- HTML for the cart page -->
+  <div class="cart-container"></div>
+  
+<script src="assets/js/catalogo1.js"></script>
+<script type="module" src="assets/js/catalogo.js"></script>
+<script src="assets/js/firebaseConfig.js"></script>
+</body>
+</html>
