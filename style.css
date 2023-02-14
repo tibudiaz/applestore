@@ -126,7 +126,7 @@ body {
   margin: 0 auto;
 }
 .propaganda2{
-  width: 35%;
+  width: 100%;
 }
 #currentImage {
   transition: opacity 0.5s linear;
@@ -136,6 +136,10 @@ body {
   flex-direction: column;
   align-items: flex-start;
   gap: 1vh;
+}
+.grid-color{
+  display: flex;
+  flex-direction: column-reverse;
 }
 .cambioColor button {
   background-color: transparent;
@@ -237,7 +241,25 @@ body {
   color: white;
   text-align: center;
 }
-
+  /*catalogo*/
+  #catalog{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;  
+    gap: 15px;
+    width: 90%;
+    margin: 0 auto;
+  }
+.product-card{
+  background-color: #fff;
+  text-align: center;
+  border-radius: 20px;
+}
+.product-card img{
+  margin: 15px auto;
+  display: block;
+  width: 90%;
+  border-radius: 20px;
+}
 @media screen and (min-width: 1000px) {
   /* encabezado */
   .marca1__nombre{
@@ -264,16 +286,24 @@ body {
     margin-top: 10%;
   }
   .propaganda{
-    width: 50%;
+    width: 40%;
   }
-  .propaganda2{
+  .propagand1{
     width: 20%;
   }
+
+
+  .propaganda2{
+    width: 100%;
+  }
+  .grid-color{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: 400px;
+  }
   .cambioColor{
-    position: absolute;
-    z-index: 1;
-    top: 1600px;
-    right: 300px;
+    margin-top: 300px;
+
   }
   .entrada1.visible{
     font-size: 90px;
@@ -299,6 +329,13 @@ body {
     grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     gap: 15px;
+  }
+  #catalog{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .product-card img{
+    width: 60%;
   }
 }
 @media screen and (max-width: 600px) {
@@ -331,22 +368,3 @@ body {
   }
 
 
-  /*catalogo*/
-  #catalog{
-    display: grid;
-    grid-template-columns: 1fr 1fr ;  
-    gap: 15px;
-    width: 90%;
-    margin: 0 auto;
-  }
-.product-card{
-  background-color: #fff;
-  text-align: center;
-  border-radius: 20px;
-}
-.product-card img{
-  margin: 15px auto;
-  display: block;
-  width: 90%;
-  border-radius: 20px;
-}
