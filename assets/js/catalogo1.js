@@ -1,21 +1,14 @@
+// configuracion de firebase para inicializar al servidor y tomar todos los celulares usados en venta
+
 const firebaseConfig = {
-
   apiKey: "AIzaSyBa6Op4MQHY5kaeCOBHfRuw_VHSXgbcYn0",
-
   authDomain: "apple-55adb.firebaseapp.com",
-
   databaseURL: "https://apple-55adb-default-rtdb.firebaseio.com",
-
   projectId: "apple-55adb",
-
   storageBucket: "apple-55adb.appspot.com",
-
   messagingSenderId: "797079389741",
-
   appId: "1:797079389741:web:729e6868a42410f1341aa4",
-
   measurementId: "G-9G30DFC6MX"
-
 };
 
 
@@ -27,12 +20,13 @@ formProduct.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const productName = formProduct.querySelector("#product-name").value;
-  const productImage = formProduct.querySelector("#product-image").value;
+  const productBat = formProduct.querySelector("#product-bat").value;
   const productPrice = formProduct.querySelector("#product-price").value;
 
+  
   const product = {
     name: productName,
-    image: productImage,
+    bat: productBat,
     price: productPrice,
   };
 
@@ -60,27 +54,3 @@ function sendDataToFirebase(product) {
     }
   });
 }
-
-// Carga los productos desde Firebase al cargar la página
-function loadProducts() {
-  // Intentamos obtener los productos del Local Storage
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  // Obtenemos los productos de Firebase y los agregamos al Local Storage si no se encontraron allí antes
-  firebase.database().ref("cart").once("value")
-    .then(snapshot => {
-      snapshot.forEach(productSnapshot => {
-        const product = productSnapshot.val();
-        if (!cart.find(item => item.name === product.name)) {
-          cart.push(product);
-        }
-      });
-      localStorage.setItem("cart", JSON.stringify(cart));
-      cart.forEach(product => addProduct(product.name, product.price, product.image));
-    });
-}
-
-// Llamamos a la función loadProducts al cargar la página
-window.addEventListener("load", function () {
-  loadProducts();
-});

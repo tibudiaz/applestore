@@ -5,7 +5,7 @@ toggleButton.addEventListener('click', function() {
   navbarList.classList.toggle('active');
 });
 
-//cambio de imagen segun seleccion del usuario
+//cambio de imagen segun seleccion del usuario (esta echo de esta manera para que parezca que cambia de color solo el celular)
 
 
 const images = ["assets/img/logo2.jpg", "assets/img/logo2oro.jpg", "assets/img/logo2plata.jpg", "assets/img/logo2negro.jpg"];
@@ -91,3 +91,4 @@ comprarBtn.addEventListener("click", function() {
     behavior: "smooth"
   });
 });
+

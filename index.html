@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Apple store RC</title>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-database.js"></script>
@@ -138,6 +138,22 @@
     </section>
     <section id="catalog">
     </section>
+
+    <button id="show-cart-button">Mostrar carrito</button>
+    <div id="cart-container">
+      <div id="cart-content">
+        <!-- Contenido del carrito aquí -->
+      </div>
+      <button id="hide-cart-button" class="close-button">X</button>
+      <div id="cart-buttons">
+        <button id="clear-cart" class="cart-buttons">Borrar carrito</button>
+        <button id="finalize-purchase" class="cart-button">Finalizar compra</button>
+
+      </div>
+    </div>
+    
+    
+
 
 
     <footer>
