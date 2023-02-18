@@ -199,6 +199,13 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
                 carrito.splice(index, 1);
                 localStorage.setItem('carrito', JSON.stringify(carrito));
                 showCart();
+                Swal.fire({
+                    position: 'top-start',
+                    icon: 'success',
+                    title: 'Producto eliminado',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
             }
             });
             productListItem.appendChild(productName);
@@ -238,6 +245,13 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     function addProductToCart(name, price) {
         carrito.push({ name: name, price: parseFloat(price) });
         localStorage.setItem('carrito', JSON.stringify(carrito));
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Producto agregado al carrito',
+            showConfirmButton: false,
+            timer: 1200
+        })
     }
 //borra productos
     function clearCart() {
@@ -325,18 +339,26 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     }
     window.addEventListener('load', function() {
         const showCartButton = document.querySelector('#show-cart-button');
-            showCartButton.addEventListener('click', () => {
+        showCartButton.addEventListener('click', () => {
             const cartContainer = document.querySelector('#cart-container');
-        cartContainer.style.display = 'block';
-        showCart();
+            cartContainer.style.display = 'block';
+            cartContainer.style.opacity = 0;
+            setTimeout(() => {
+                cartContainer.style.opacity = 1;
+            }, 100);
+            showCart();
         });
+    
         const hideCartButton = document.querySelector('#hide-cart-button');
         hideCartButton.addEventListener('click', () => {
             const cartContainer = document.querySelector('#cart-container');
-            cartContainer.style.display = 'none';
+            cartContainer.style.opacity = 0;
+            setTimeout(() => {
+                cartContainer.style.display = 'none';
+            }, 1500);
         });
     });
-
+    
 
 
 // Llamamos a la función loadProducts al cargar la página
