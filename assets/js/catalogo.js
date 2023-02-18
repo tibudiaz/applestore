@@ -128,23 +128,23 @@ function getExchangeRate() {
         //segun condicion de bateria tira un color especifico o lo define como nuevo
         const productBat = document.createElement('h4');
 
-        switch (true) {
-            case (bat < 10):
-              productBat.innerText = "Equipo nuevo";
-              break;
-            default:
-              productBat.innerText = `Condición de batería ${bat}%`;
-              if (bat >= 90) {
-                productBat.style.color = 'green';
-              } else if (bat >= 80) {
-                productBat.style.color = 'orange';
-              } else {
-                productBat.style.color = 'red';
-              }
-          }
-        
-          
-          
+            switch (true) {
+                case (bat < 10):
+                productBat.innerText = "Equipo nuevo";
+                break;
+                default:
+                productBat.innerText = `Condición de batería ${bat}%`;
+                if (bat >= 90) {
+                    productBat.style.color = 'green';
+                } else if (bat >= 80) {
+                    productBat.style.color = 'orange';
+                } else {
+                    productBat.style.color = 'red';
+                }
+            }
+            
+            
+            
             
         const productMem = document.createElement('h4');
         productMem.innerText = `Memoria ${memoria}Gb.`;
@@ -241,14 +241,87 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     }
 //borra productos
     function clearCart() {
-    carrito = [];
-    localStorage.removeItem('carrito');
-    showCart();
-    }
-//finalizar la compra
+        Swal.fire({
+            title: '¿Estás seguro de que deseas borrar todo el contenido del carrito?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Borrar',
+            cancelButtonText: 'No, Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    carrito = [];
+                    localStorage.removeItem('carrito');
+                    showCart();
+                    Swal.fire(
+                    'Borrado',
+                    'El carrito fue borrado',
+                    'success'
+                )
+                }
+            })
+        }
+    //finalizar la compra
     function finalizePurchase() {
-    clearCart();
-    alert('¡Gracias por su compra!');
+        const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },      
+        })
+                
+        swalWithBootstrapButtons.fire({
+        title: '¿Estás seguro de realizar la compra?',
+        text: "Te redirigiremos con uno de nuestros asesores.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No',
+        reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            let timerInterval;
+            Swal.fire({
+            title: 'Muchas gracias!',
+            html: 'Lo estamos redirigiendo. Aguarde...',
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+                }, 100)
+            },
+            willClose: () => {
+                let message = "Hola, quiero comprar: ";
+            carrito.forEach(product => {
+                message += `${product.name}  ${product.price.toLocaleString()}`;
+
+            });
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/+5493584224464?text=${encodedMessage}`;
+            window.location.href = whatsappUrl;
+            localStorage.removeItem('carrito')
+                clearInterval(timerInterval)
+            }
+            }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('se cerro el timer')
+            }
+            })
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'La compra ha sido cancelada',
+            'error'
+            )
+        }
+        })
     }
     window.addEventListener('load', function() {
         const showCartButton = document.querySelector('#show-cart-button');
