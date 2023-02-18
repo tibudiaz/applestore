@@ -6,7 +6,10 @@
     <title>Apple store RC</title>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-database.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    
   </head>
   <body>
 
@@ -31,8 +34,13 @@
 <section>
     <div class="marca">
       <h1 class="marca1__nombre">Apple Store RC</h1>
+      <div class="botones">
+      <button id="show-cart-button" class="carritobtn"><img class="carrito" src="assets/img/carrito.png" alt=""></button>
+      <div class="btcomprar">
       <button id="comprarBtn" class="btn-comprar">Comprar</button>  
       </div>
+    </div>
+    </div>
 </section>
   <section id="imageContainer" class="iphone">
     <img class="propaganda" src="assets/img/logo.jpg" alt="">
@@ -87,64 +95,26 @@
     </section>
 
 
-
+<section>
   <p class="entrada1">iPhone Nuevos</p>
-
-    <section class="venta">
-      <div class="card">
-      <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-      <p>iPhone 13 pro max</p>
-              <button class="btn-comprar">Comprar</button>   
-      </div>
-      <div class="card">
-        <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-        <p>iPhone 13 pro max</p>
-        <button class="btn-comprar">Comprar</button>  
-        </div>
-        <div class="card">
-          <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-          <p>iPhone 13 pro max</p>
-                  <button class="btn-comprar">Comprar</button>   
-          </div>
-          <div class="card">
-            <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-            <p>iPhone 13 pro max</p>
-                    <button class="btn-comprar">Comprar</button>   
-            </div>
-            <div class="card">
-              <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-              <p>iPhone 13 pro max</p>
-                      <button class="btn-comprar">Comprar</button>   
-              </div>
-              <div class="card">
-                <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-                <p>iPhone 13 pro max</p>
-                        <button class="btn-comprar">Comprar</button>   
-                </div>
-                <div class="card">
-                  <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-                  <p>iPhone 13 pro max</p>
-                          <button class="btn-comprar">Comprar</button>   
-                  </div>
-                  <div class="card">
-                    <img class="logo" src="assets/img/header_iphone_13_pro_sierra_blue_large_2x-1.jpg">
-                    <p>iPhone 13 pro max</p>
-                            <button class="btn-comprar">Comprar</button>   
-                    </div>
-    </section>
+  <div id="new-products"></div>
+</section>
     
     <p class="entrada2">iPhone Usados</p>
+    <div id="catalog-controls">
+      <div id="used-products"></div>
+
+    </div>
+    </section>
 
     </section>
-    <section id="catalog">
-    </section>
 
-    <button id="show-cart-button">Mostrar carrito</button>
-    <div id="cart-container">
+
+    <div id="cart-container">     
       <div id="cart-content">
         <!-- Contenido del carrito aquí -->
       </div>
-      <button id="hide-cart-button" class="close-button">X</button>
+      <button id="hide-cart-button" class="close-button"></button>
       <div id="cart-buttons">
         <button id="clear-cart" class="cart-buttons">Borrar carrito</button>
         <button id="finalize-purchase" class="cart-button">Finalizar compra</button>

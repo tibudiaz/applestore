@@ -53,10 +53,13 @@ body {
 }
 
 .marca1__nombre {
-  font-size: 50px;
+  font-size: 60px;
   margin-left: 10px;
 }
-
+.botones{
+  display: flex;
+  flex-direction: row;
+}
 .btn-comprar {
   background-color: #007aff;
   color: #fff;
@@ -68,8 +71,17 @@ body {
   margin-right: 10px;
   margin: 35px;
 }
+.btcomprar{
+  margin-top: 30px;
+}
+.carritobtn{
+  background-color: transparent;
+  margin-top: 30px;
+}
+.carrito{
+  width: 50px;
 
-
+}
 /* menu */
 
 
@@ -242,7 +254,14 @@ body {
   text-align: center;
 }
   /*catalogo*/
-  #catalog{
+  #new-products{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;  
+    gap: 15px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  #used-products{
     display: grid;
     grid-template-columns: 1fr 1fr ;  
     gap: 15px;
@@ -330,7 +349,11 @@ body {
     justify-content: center;
     gap: 15px;
   }
-  #catalog{
+  #new-products{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+  #used-products{
     display: grid;
     grid-template-columns: repeat(6, 1fr);
   }
@@ -442,16 +465,54 @@ body {
 }
 
 .close-button{
-  color: white;
-  background-color: #333;
-  border-radius: 100%;
-  font-size: 23px;
-  position: relative;
+
+
+  position: absolute;
   float:right;
-  bottom: 130px;
+  bottom: 97vh;
 }
-.close-button:hover{
-  background-color: #ff0000;
+.close-button {
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: #ff1900;
+}
+
+.close-button:focus {
+  outline: none;
+}
+.close-button1 {
+  padding: 5px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #da9393;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-button1:hover {
+  color: #f11800;
+}
+
+.close-button1:focus {
+  outline: none;
+}
+
+/* Icono del botón */
+.close-button::before {
+  content: "X";
 }
 label{
   color:white;
@@ -459,4 +520,58 @@ label{
 .carga{
   text-align: center;
   color: #fff;
+}
+
+
+/*formulario de carga de productos*/
+.form-product {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  background-color: #807d7d;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-product label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-product input,
+.form-product select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.form-product button {
+  display: block;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.form-product button:hover {
+  background-color: #3e8e41;
+}
+
+.cart-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+  color: #3e8e41;
+  text-align: center;
 }

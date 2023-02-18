@@ -13,26 +13,28 @@ const firebaseConfig = {
 
 
 
-
-//tomamos los datos cargados en el formulario por el usuario y los almacenamos en el local storage
+//tomamos los datos cargados por el usuario y los almacenamos en firebase
 const formProduct = document.querySelector(".form-product");
+
 formProduct.addEventListener("submit", function (event) {
   event.preventDefault();
 
+  const productEstado = formProduct.querySelector("#product-estado").value;
   const productName = formProduct.querySelector("#product-name").value;
   const productBat = formProduct.querySelector("#product-bat").value;
   const productPrice = formProduct.querySelector("#product-price").value;
+  const productMem = formProduct.querySelector("#product-mem").value;
+  const productCol = formProduct.querySelector("#product-col").value;
 
-  
   const product = {
+    estado: productEstado,
     name: productName,
     bat: productBat,
     price: productPrice,
+    memoria: productMem,
+    color: productCol,
   };
 
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push(product);
-  localStorage.setItem("cart", JSON.stringify(cart));
   sendDataToFirebase(product);
   formProduct.reset();
 });
@@ -48,9 +50,13 @@ function sendDataToFirebase(product) {
   // Envía el nuevo producto a Firebase
   database.ref('cart').push(product, error => {
     if (error) {
-      console.error('Error al enviar los datos a Firebase:', error);
+      const mensaje = 'Error al enviar los datos a Firebase: ' + error;
+      console.error(mensaje);
+      document.querySelector('.cart-container').innerHTML = mensaje;
     } else {
-      console.log('Los datos se enviaron correctamente a Firebase.');
+      const mensaje = 'Los datos se enviaron correctamente a Firebase.';
+      console.log(mensaje);
+      document.querySelector('.cart-container').innerHTML = mensaje;
     }
   });
 }
