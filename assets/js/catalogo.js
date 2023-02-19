@@ -57,6 +57,13 @@ function getExchangeRate() {
 
         }
         const productImage = document.createElement('img');
+        // Agregar un atributo "data-name" para almacenar el nombre del producto
+        productImage.setAttribute('data-name', name);
+        productImage.setAttribute('data-color', color);
+        productImage.setAttribute('data-mem', memoria);
+        productImage.setAttribute('data-bat', bat);
+        // Agregar un event listener para el evento "click"
+        productImage.addEventListener('click', carousel);
         //javascript va a tomar el nombre del equipo cargado por el usuario y va a definir una foto segun coincidencias
         switch (name.toLowerCase()) {
             case 'iphone 8':
@@ -166,9 +173,97 @@ function getExchangeRate() {
             showCart();
         });
         productContainer.appendChild(btnAgregarAlCarrito);
-
     });
 }
+//funcion carousel con imagenes cargadas en firebase (elije las fotos segun el nombre del producto)
+function carousel(event) {
+    //mosrtamos el boton de carga
+    const loadingButton = document.getElementById("loading-button");
+    loadingButton.style.display = "block";
+    // Obtener el nombre del producto
+    const productName = event.target.getAttribute("data-name");
+    const productColor = event.target.getAttribute("data-color");
+    const productMem = event.target.getAttribute("data-mem");
+    const productBat = event.target.getAttribute("data-bat");
+    let folderName = productName;
+    if (productColor) {
+        folderName += ` ${productColor} ${productMem} ${productBat}`;
+        }
+        //buscamos la carpeta del producto en firebase
+        const storageRef = firebase.storage().ref().child(`${folderName}`);
+        storageRef.listAll().then((result) => {
+        const images = [];
+        result.items.forEach((imageRef) => {
+            imageRef.getDownloadURL().then((url) => {
+            images.push(url);
+            if (images.length === result.items.length) {;
+                // Ocultar botón de carga después de 2000ms
+            setTimeout(() => {
+                loadingButton.style.display = "none";
+            }, 1000);
+                const slides = images
+                .map((url, index) => `
+                    <div class="carousel-item${index === 0 ? ' active' : ''}">
+                    <img src="${url}" class="d-block w-100" alt="">
+                    </div>
+                `)
+                .join("");
+    
+                const gallery = document.createElement("div");
+                gallery.classList.add("product-gallery", "carousel", "slide");
+                gallery.setAttribute("data-bs-ride", "carousel");
+                gallery.setAttribute("id", "product-carousel");
+    
+                gallery.innerHTML = `
+                <div class="carousel-indicators">
+                    ${images.map((_, index) => `
+                    <button type="button" data-bs-target="#product-carousel" data-bs-slide-to="${index}"${index === 0 ? ' class="active" aria-current="true"' : ''} aria-label="Slide ${index + 1}"></button>
+                    `).join('')}
+                </div>
+    
+                <div class="carousel-inner">
+                    ${slides}
+                </div>
+    
+                <button class="carousel-control-prev" type="button" data-bs-target="#product-carousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+    
+                <button class="carousel-control-next" type="button" data-bs-target="#product-carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+
+                <button type="button" class="btn-close" aria-label="Close"></button>
+                `;
+    
+                document.body.appendChild(gallery);
+                gallery.style.position = "fixed";
+                // Inicializar el carrusel con Bootstrap
+                const carousel = $(gallery).find(".carousel");
+                carousel.carousel({
+                interval: false, // Para que no avance automáticamente
+                });
+                // Agregar evento al botón de cierre
+                $(".btn-close", gallery).click(() => {
+                $(gallery).remove();
+                });
+                const handleDocumentClick = (event) => {
+                    if (!gallery.contains(event.target)) {
+                    $(gallery).remove();
+                    document.removeEventListener("click", handleDocumentClick);
+                    }
+                };
+                document.addEventListener("click", handleDocumentClick);
+                
+
+            }
+            });
+        });
+        });
+    }
+    
 
 
 
@@ -205,7 +300,7 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
                     title: 'Producto eliminado',
                     showConfirmButton: false,
                     timer: 1000
-                  })
+                })
             }
             });
             productListItem.appendChild(productName);

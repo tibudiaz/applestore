@@ -40,7 +40,8 @@ function changeImage(index) {
     currentIndex = index;
     currentImage.src = images[index];
     currentImage.style.opacity = 1;
-  }, 300);
+    updateActiveButton(index);
+  }, 700);
 }
 
 //botones del color del iphone. Activa la seleccionada
@@ -49,15 +50,24 @@ const buttons = document.querySelectorAll(".cambioColor button");
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", function() {
     changeImage(i);
-
-    for (let j = 0; j < buttons.length; j++) {
-      buttons[j].classList.remove("active");
-    }
-
-    this.classList.add("active");
+    updateActiveButton(i);
   });
   buttons[0].classList.add("active");
 }
+
+function updateActiveButton(index) {
+  const activeButton = document.querySelector(".cambioColor button.active");
+  if (activeButton) {
+    activeButton.classList.remove("active");
+  }
+  const newActiveButton = document.querySelector(`.cambioColor button[data-index="${index}"]`);
+  newActiveButton.classList.add("active");
+}
+
+setInterval(function() {
+  currentIndex = (currentIndex + 1) % images.length;
+  changeImage(currentIndex);
+}, 5000);
 
 //entrada al area de tienda
 
@@ -83,12 +93,12 @@ titulo2.classList.remove("visible");
 });
 
 //boton comprar
-const comprarBtn = document.querySelector("#comprarBtn");
-const seccionProductos = document.querySelector("#tienda");
+// const comprarBtn = document.querySelector("#comprarBtn");
+// const seccionProductos = document.querySelector("#tienda");
 
-comprarBtn.addEventListener("click", function() {
-  seccionProductos.scrollIntoView({
-    behavior: "smooth"
-  });
-});
+// comprarBtn.addEventListener("click", function() {
+//   seccionProductos.scrollIntoView({
+//     behavior: "smooth"
+//   });
+// });
 

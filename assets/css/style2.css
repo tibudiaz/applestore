@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: rgb(131, 129, 129);
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"],
+  input[type="file"] {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444444;
+    color: white;
+  }
+  
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #555555;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #666666;
+  }
+  
+  #imagePreview img {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  .progress{
+    text-align: center;
+  }
+  progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 80%;
+    background-color: #ddd;
+  }
+  
+  progress[value]::-webkit-progress-bar {
+    background-color: #ddd;
+  }
+  
+  progress[value]::-webkit-progress-value {
+    background-color: #4CAF50;
+  }
+  
