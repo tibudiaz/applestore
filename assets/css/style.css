@@ -39,21 +39,21 @@ body {
   display: none;
 }
 /* encabezado */
-.marca {
-  text-align: left;
+
+.marca{
+  display: flex;
+  flex-direction: column;
   color: white;
   position: fixed;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
   top: 61px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  text-align: center;
 }
 
 .marca1__nombre {
-  font-size: 60px;
+  font-size: 40px;
   margin-left: 10px;
   margin-top: 20px;
 }
@@ -138,6 +138,9 @@ body {
 #currentImage {
   transition: opacity 0.5s linear;
 }
+.propagand1{
+  width: 40%;
+}
 .cambioColor {
   display: flex;
   flex-direction: column;
@@ -181,7 +184,7 @@ body {
 }
 .info3{
   color: #817c7c;
-  font-size: 40px;
+  font-size: 30px;
   margin: 25px 100px;
 
 }
@@ -201,8 +204,11 @@ body {
   margin: 0 auto;
 }
 .propaganda4{
-  width: 50%;
+  width: 30%;
   margin: 0 auto;
+}
+.prop{
+  width: 100%;
 }
 
 .dinamic{
@@ -230,7 +236,7 @@ body {
 .entrada1.visible {
   opacity: 1;
   transform: translateY(0);
-  font-size: 170px;
+  font-size: 80px;
   color: rgb(255, 252, 252);
   text-align: center;
 }
@@ -244,7 +250,7 @@ body {
 .entrada2.visible {
   opacity: 1;
   transform: translateY(0);
-  font-size: 170px;
+  font-size: 80px;
   color: rgb(255, 255, 255);
   text-align: center;
 }
@@ -276,11 +282,18 @@ body {
 }
 @media screen and (min-width: 1000px) {
   /* encabezado */
+  .marca {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   .marca1__nombre{
     font-size: 25px;
   }
   .carrito{
     width: 40px;
+    margin-right: 15px;
   }
   .btn-comprar{
     font-size: 18px;
@@ -337,9 +350,13 @@ body {
     justify-content: center;
     gap: 15px;
   }
+  .info3{
+    margin-top: 150px;
+  }
   .propaganda4{
     margin: 0 auto;
-    margin: 0 300px;
+    margin: 0 200px;
+    width: 50%;
   }
   .grid2{
     display: grid;
@@ -389,6 +406,7 @@ body {
   }
 
 /* carrito */
+/* Estilos para el carrito en modo celular */
 /* Estilos para el carrito en modo celular */
 @media only screen and (max-width: 600px) {
   #cart-container {
@@ -501,6 +519,18 @@ body {
     color: #fff;
   }
 }
+
+
+label {
+  color:white;
+}
+
+.carga {
+  text-align: center;
+  color: #fff;
+}
+
+
 
 #cart-container {
   display: none;
@@ -710,9 +740,9 @@ label{
   border-radius: 20px !important;
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .product-gallery {
-    width: 70%;
+    width: 80%;
   }
 }
 /* Posicionamiento del botón de cierre */
