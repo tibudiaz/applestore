@@ -37,14 +37,13 @@ function getExchangeRate() {
     return fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales')
         .then(response => response.json())
         .then(data => parseFloat(data.filter(x => x.casa.nombre === 'Dolar Blue')[0].casa.venta.replace(',', '')));
-    }
-    //tomamos el precio añadido por el usuario (en dolares) y lo pasamos a pesos segun cotizacion de mi ciudad del dolar. (por eso a exchangeRate le sumo $4)
-    function addProduct(name, price, bat, memoria, color, estado) {
+}
+
+//tomamos el precio añadido por el usuario (en dolares) y lo pasamos a pesos segun cotizacion de mi ciudad del dolar. (por eso a exchangeRate le sumo $4)
+function addProduct(name, price, bat, memoria, color, estado) {
     getExchangeRate().then(exchangeRate => {
-      const arsPrice = (price / 100) * (exchangeRate + 400);
-
+        const arsPrice = (price / 100) * (exchangeRate + 400);
         // Continuamos con la lógica de la función
-
         const productContainer = document.createElement('div');
         productContainer.classList.add('product-card');
         if (estado === "Nuevo") {
@@ -159,12 +158,15 @@ function getExchangeRate() {
         productCol.innerText = `Color ${color}.`;
         const productPrice = document.createElement('p');
         productPrice.innerText = `Precio: ARS $${arsPrice.toLocaleString()}`;
+        const productPriceUsd = document.createElement('p');
+        productPriceUsd.innerText = `Precio: USD $${price.toLocaleString()}`;
         productContainer.appendChild(productImage);
         productContainer.appendChild(productName);
         productContainer.appendChild(productMem);
         productContainer.appendChild(productCol);
         productContainer.appendChild(productBat);
         productContainer.appendChild(productPrice);
+        productContainer.appendChild(productPriceUsd);
         const btnAgregarAlCarrito = document.createElement("button");
         btnAgregarAlCarrito.classList.add("btn-comprar");
         btnAgregarAlCarrito.innerText = "Agregar al carrito";
