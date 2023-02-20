@@ -149,6 +149,7 @@ header {
   width: 30px;
   height: 21px;
   cursor: pointer;
+  color: white;
 }
 
 .bar {
@@ -189,6 +190,7 @@ header {
 }
 /* Estilos del navbar en pantallas pequeñas */
 @media only screen and (max-width: 768px) {
+
   /* Ocultar la lista de navegación */
   .navbar1-list {
     display: none;
@@ -197,6 +199,7 @@ header {
   /* Mostrar el botón de menú */
   .toggle-button {
     display: flex;
+    color: white;
   }
 
   /* Estilos del botón de menú activo */

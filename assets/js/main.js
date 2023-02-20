@@ -1,9 +1,3 @@
-const toggleButton = document.querySelector('.toggle-button');
-const navbarList = document.querySelector('.navbar-list');
-
-toggleButton.addEventListener('click', function() {
-  navbarList.classList.toggle('active');
-});
 
 //cambio de imagen segun seleccion del usuario (esta echo de esta manera para que parezca que cambia de color solo el celular)
 
@@ -99,5 +93,24 @@ titulo2.classList.add("visible");
 } else {
 titulo2.classList.remove("visible");
 }
+});
+
+
+// Obtener elementos del DOM
+const toggleButton = document.querySelector('.toggle-button');
+const navbarList = document.querySelector('.navbar1-list');
+const navbarMenu = document.querySelector('.navbar1-menu');
+
+// Agregar evento al botón de menú
+toggleButton.addEventListener('click', () => {
+  // Toggle class "active" al menú
+  navbarMenu.classList.toggle('active');
+
+  // Mostrar o ocultar la lista de navegación
+  if (navbarMenu.classList.contains('active')) {
+    navbarList.style.display = 'block';
+  } else {
+    navbarList.style.display = 'none';
+  }
 });
 
