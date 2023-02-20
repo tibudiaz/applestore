@@ -15,9 +15,42 @@ const color1Btn = document.getElementById("color1Btn");
 const color2Btn = document.getElementById("color2Btn");
 const color3Btn = document.getElementById("color3Btn");
 const color4Btn = document.getElementById("color4Btn");
+const buttons = document.querySelectorAll(".cambioColor button");
+var currentIndex = 0;
+var timer = null;
 
-let currentIndex = 0;
+// función para cambiar la imagen
+function changeImage(index) {
+  currentImage.style.opacity = 0; // oculta la imagen actual
+  setTimeout(function() {
+    currentIndex = index;
+    currentImage.src = images[index]; // carga la nueva imagen
+    currentImage.style.opacity = 1; // muestra la nueva imagen
+    updateActiveButton(index); // actualiza el botón activo
+    restartTimer(); // reinicia el timer
+  }, 700);
+}
 
+// función para actualizar el botón activo
+function updateActiveButton(index) {
+  const activeButton = document.querySelector(".cambioColor button.active");
+  if (activeButton) {
+    activeButton.classList.remove("active");
+  }
+  const newActiveButton = document.querySelector(`.cambioColor button[data-index="${index}"]`);
+  newActiveButton.classList.add("active");
+}
+
+// función para reiniciar el timer
+function restartTimer() {
+  clearInterval(timer); // detiene el timer actual
+  timer = setInterval(function() { // crea un nuevo timer
+    currentIndex = (currentIndex + 1) % images.length; // cambia al siguiente índice de imagen
+    changeImage(currentIndex); // cambia la imagen
+  }, 5000);
+}
+
+// agregar listeners a los botones de color
 color1Btn.addEventListener("click", function() {
   changeImage(0);
 });
@@ -34,40 +67,16 @@ color4Btn.addEventListener("click", function() {
   changeImage(3);
 });
 
-function changeImage(index) {
-  currentImage.style.opacity = 0;
-  setTimeout(function() {
-    currentIndex = index;
-    currentImage.src = images[index];
-    currentImage.style.opacity = 1;
-    updateActiveButton(index);
-  }, 700);
-}
-
-//botones del color del iphone. Activa la seleccionada
-const buttons = document.querySelectorAll(".cambioColor button");
-
+// agregar listeners a todos los botones de color
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", function() {
     changeImage(i);
     updateActiveButton(i);
   });
-  buttons[0].classList.add("active");
+  buttons[0].classList.add("active"); // activar el primer botón al cargar la página
 }
 
-function updateActiveButton(index) {
-  const activeButton = document.querySelector(".cambioColor button.active");
-  if (activeButton) {
-    activeButton.classList.remove("active");
-  }
-  const newActiveButton = document.querySelector(`.cambioColor button[data-index="${index}"]`);
-  newActiveButton.classList.add("active");
-}
-
-setInterval(function() {
-  currentIndex = (currentIndex + 1) % images.length;
-  changeImage(currentIndex);
-}, 5000);
+restartTimer(); // iniciar el timer al cargar la página
 
 //entrada al area de tienda
 
@@ -91,14 +100,4 @@ titulo2.classList.add("visible");
 titulo2.classList.remove("visible");
 }
 });
-
-//boton comprar
-// const comprarBtn = document.querySelector("#comprarBtn");
-// const seccionProductos = document.querySelector("#tienda");
-
-// comprarBtn.addEventListener("click", function() {
-//   seccionProductos.scrollIntoView({
-//     behavior: "smooth"
-//   });
-// });
 
