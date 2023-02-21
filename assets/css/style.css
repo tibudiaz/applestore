@@ -248,7 +248,7 @@ header {
     gap: 15px;
     width: 90%;
     margin: 0 auto;
-    font-size: small;
+    font-size: large;
   }
   #used-products{
     display: grid;
@@ -256,7 +256,7 @@ header {
     gap: 15px;
     width: 90%;
     margin: 0 auto;
-    font-size: small;
+    font-size: 15px;
   }
 .product-card{
   background-color: #ffffff;
@@ -266,7 +266,8 @@ header {
 .product-card img{
   margin: 15px auto;
   display: block;
-  width: 80%;
+  width: 170px;
+  height: 250px;
   border-radius: 20px;
 }
 @media screen and (min-width: 1000px) {
@@ -373,7 +374,8 @@ header {
     grid-template-columns: repeat(6, 1fr);
   }
   .product-card img{
-    width: 60%;
+    width: 210px;
+    height: 290px;
   }
 }
 
@@ -386,8 +388,7 @@ header {
     width: 100%;
   }
 
-/* carrito */
-/* Estilos para el carrito en modo celular */
+
 /* Estilos para el carrito en modo celular */
 @media only screen and (max-width: 600px) {
   #cart-container {
@@ -759,4 +760,70 @@ label{
 /* definiendo posicion de swal alert */
 .my-swal {
   z-index: 999999999999 !important;
+}
+
+/* formulario plan canje */
+
+.container{
+  background-color: #333;
+  border-radius: 15px;
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+form {
+  margin: 0 auto;
+  max-width: 600px;
+  background-color: #ffffffb2;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.canje {
+  text-align: center;
+  color: white;
+  font-size: 50px;
+}
+
+label {
+  color: white;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+select, input[type="text"] {
+  background-color: #222;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+select:focus, input[type="text"]:focus {
+  outline: none;
+}
+  
+
+.cotizar {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 15px 150px;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.cotizar:hover {
+  background-color: #387a3a;
+  color: rgb(180, 179, 179);
 }

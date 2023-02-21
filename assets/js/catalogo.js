@@ -491,3 +491,5 @@ window.addEventListener("load", function () {
     loadProducts();
 });
 
+//cotizacion de celulares:
+
