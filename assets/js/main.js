@@ -95,22 +95,11 @@ titulo2.classList.remove("visible");
 }
 });
 
-
-// Obtener elementos del DOM
-const toggleButton = document.querySelector('.toggle-button');
-const navbarList = document.querySelector('.navbar1-list');
-const navbarMenu = document.querySelector('.navbar1-menu');
-
-// Agregar evento al botón de menú
-toggleButton.addEventListener('click', () => {
-  // Toggle class "active" al menú
-  navbarMenu.classList.toggle('active');
-
-  // Mostrar o ocultar la lista de navegación
-  if (navbarMenu.classList.contains('active')) {
-    navbarList.style.display = 'block';
-  } else {
-    navbarList.style.display = 'none';
-  }
+//funcion para cerrar el navbar haciendo click fuera de el
+$(document).ready(function() {
+  $(document).on('click', function(event) {
+    if ($(event.target).closest('.navbar').length === 0) {
+      $('.navbar-collapse').collapse('hide');
+    }
+  });
 });
-

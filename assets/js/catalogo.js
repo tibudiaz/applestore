@@ -42,7 +42,7 @@ function getExchangeRate() {
 //tomamos el precio añadido por el usuario (en dolares) y lo pasamos a pesos segun cotizacion de mi ciudad del dolar. (por eso a exchangeRate le sumo $4)
 function addProduct(name, price, bat, memoria, color, estado) {
     getExchangeRate().then(exchangeRate => {
-        const arsPrice = (price / 100) * (exchangeRate + 400);
+        const arsPrice = (price / 100) * (exchangeRate + 300);
         // Continuamos con la lógica de la función
         const productContainer = document.createElement('div');
         productContainer.classList.add('product-card');
@@ -298,7 +298,12 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
                 carrito.splice(index, 1);
                 localStorage.setItem('carrito', JSON.stringify(carrito));
                 showCart();
-                Swal.fire({
+                const Swal1 = Swal.mixin({
+                    customClass: {
+                        container: 'my-swal'
+                    },      
+                    })
+                Swal1.fire({
                     position: 'top-start',
                     icon: 'success',
                     title: 'Producto eliminado',
@@ -344,7 +349,12 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     function addProductToCart(name, price) {
         carrito.push({ name: name, price: parseFloat(price) });
         localStorage.setItem('carrito', JSON.stringify(carrito));
-        Swal.fire({
+        const Swal1 = Swal.mixin({
+            customClass: {
+                container: 'my-swal'
+            },      
+            })
+        Swal1.fire({
             position: 'top-end',
             icon: 'success',
             title: 'Producto agregado al carrito',
@@ -356,7 +366,13 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     }
 //borra productos
     function clearCart() {
-        Swal.fire({
+        const Swal1 = Swal.mixin({
+            customClass: {
+                container: 'my-swal'
+            },      
+            })
+        
+        Swal1.fire({
             title: '¿Estás seguro de que deseas borrar todo el contenido del carrito?',
             text: "Esta acción no se puede deshacer.",
             icon: 'warning',
@@ -385,7 +401,8 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
         const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
+            cancelButton: 'btn btn-danger',
+            container: 'my-swal'
         },      
         })
                 
@@ -402,7 +419,12 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
         }).then((result) => {
         if (result.isConfirmed) {
             let timerInterval;
-            Swal.fire({
+            const Swal1 = Swal.mixin({
+                customClass: {
+                    container: 'my-swal'
+                },      
+                })
+            Swal1.fire({
             title: 'Muchas gracias!',
             html: 'Lo estamos redirigiendo. Aguarde...',
             timer: 2000,
