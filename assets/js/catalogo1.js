@@ -40,8 +40,9 @@ formProduct.addEventListener("submit", function (event) {
 });
 
 // Inicializa la aplicación de Firebase con la configuración proporcionada
-firebase.initializeApp(firebaseConfig);
-
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 // Define la función que enviará los datos a Firebase
 function sendDataToFirebase(product) {
   // Obtiene una referencia a la base de datos de Firebase

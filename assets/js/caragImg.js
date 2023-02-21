@@ -10,8 +10,9 @@ const firebaseConfig = {
 };
 
 // Inicializa la aplicación de Firebase con la configuración proporcionada
-firebase.initializeApp(firebaseConfig);
-
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 // Obtener referencias a los elementos HTML
 const imageUpload = document.getElementById('imageUpload');
