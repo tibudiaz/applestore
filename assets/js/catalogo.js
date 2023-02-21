@@ -10,7 +10,9 @@ const firebaseConfig = {
     measurementId: "G-9G30DFC6MX"
 };
 // Inicializa la aplicación de Firebase con la configuración proporcionada
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+}
 
 
 

@@ -827,3 +827,24 @@ select:focus, input[type="text"]:focus {
   background-color: #387a3a;
   color: rgb(180, 179, 179);
 }
+
+
+
+.progress{
+  text-align: center;
+}
+progress[value] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 80%;
+  background-color: #ddd;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #ddd;
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: #4CAF50;
+}
