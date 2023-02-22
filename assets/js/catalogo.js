@@ -407,7 +407,7 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
                     carrito = [];
                     localStorage.removeItem('carrito');
                     showCart();
-                    Swal.fire(
+                    Swal1.fire(
                     'Borrado',
                     'El carrito fue borrado',
                     'success'
