@@ -827,7 +827,11 @@ select:focus, input[type="text"]:focus {
   background-color: #387a3a;
   color: rgb(180, 179, 179);
 }
-
+@media screen and (max-width: 600px) {
+  .cotizar{
+    margin: 15px 30px;
+  }
+}
 /*NOSOTROS*/
 /* Estilos para la sección "Nosotros" */
 
@@ -865,6 +869,17 @@ select:focus, input[type="text"]:focus {
   margin: 0 20px;
   color: rgb(175, 174, 174);
 }
+@media screen and (max-width: 600px) {
+  #nosotros ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    gap: 15px;
+    margin: 10px;
+  }
+
+
+}
 
 
 
@@ -881,7 +896,12 @@ select:focus, input[type="text"]:focus {
   letter-spacing: 1px;
   transition: all 0.2s ease;
 }
-
+@media screen and (max-width: 600px) {
+  #nosotros a {
+    margin: 20px 30px;
+    font-size: 15px;
+  }
+}
 #nosotros a:hover {
   background-color: #eee;
   color: black;
