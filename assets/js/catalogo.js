@@ -181,9 +181,20 @@ function addProduct(name, price, bat, memoria, color, estado) {
 }
 //funcion carousel con imagenes cargadas en firebase (elije las fotos segun el nombre del producto)
 function carousel(event) {
+    // Crear el elemento darkLayer
+    const darkLayer = document.createElement("div");
+    darkLayer.style.position = "fixed";
+    darkLayer.style.top = "0";
+    darkLayer.style.left = "0";
+    darkLayer.style.width = `${document.documentElement.clientWidth}px`;
+    darkLayer.style.height = `${document.documentElement.clientHeight}px`;
+    darkLayer.style.background = "rgba(0, 0, 0, 0.8)";
+    darkLayer.style.zIndex = "998";
+    document.body.appendChild(darkLayer);
     //mosrtamos el boton de carga
     const loadingButton = document.getElementById("loading-button");
     loadingButton.style.display = "block";
+    loadingButton.style.zIndex = "999";
     // Obtener el nombre del producto
     const productName = event.target.getAttribute("data-name");
     const productColor = event.target.getAttribute("data-color");
@@ -251,17 +262,22 @@ function carousel(event) {
                 });
                 // Agregar evento al botón de cierre
                 $(".btn-close", gallery).click(() => {
-                $(gallery).remove();
-                });
-                const handleDocumentClick = (event) => {
-                    if (!gallery.contains(event.target)) {
                     $(gallery).remove();
+                    if (darkLayer) {
+                      darkLayer.remove(); // Eliminar el elemento darkLayer si existe
+                    }
+                    });
+                    
+                    const handleDocumentClick = (event) => {
+                        if (!gallery.contains(event.target)) {
+                        $(gallery).remove();
+                        if (darkLayer) {
+                            darkLayer.remove(); // Eliminar el elemento darkLayer si existe
+                        }
                     document.removeEventListener("click", handleDocumentClick);
                     }
                 };
                 document.addEventListener("click", handleDocumentClick);
-                
-
             }
             });
         });
