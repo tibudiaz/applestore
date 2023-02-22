@@ -400,70 +400,83 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
         }
     //finalizar la compra
     function finalizePurchase() {
-        const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger',
-            container: 'my-swal'
-        },      
-        })
-                
-        swalWithBootstrapButtons.fire({
-        title: '¿Estás seguro de realizar la compra?',
-        text: "Te redirigiremos con uno de nuestros asesores.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        cancelButtonText: 'No',
-        reverseButtons: true
+        const hasPositivePriceProduct = carrito.some((product) => product.price > 0);
+        const hasNegativePriceProduct = carrito.some((product) => product.price < 0);
+      
+        const message = `Hola, quiero comprar: ${
+          hasPositivePriceProduct
+            ? carrito
+                .filter((product) => product.price > 0)
+                .map((product) => `${product.name}  ${product.price.toLocaleString()}`)
+                .join(", ")
+            : ""
+        }${hasPositivePriceProduct && hasNegativePriceProduct ? ". " : ""}${
+          hasNegativePriceProduct
+            ? "Entregaría: " +
+              carrito
+                .filter((product) => product.price < 0)
+                .map((product) => `${product.name} ${product.price.toLocaleString()}`)
+                .join(", ")
+            : ""
+        }`;
+      
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/+5493584224464?text=${encodedMessage}`;
+      
+        Swal.fire({
+          title: "¿Estás seguro de realizar la compra?",
+          text: "Te redirigiremos con uno de nuestros asesores.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sí",
+          cancelButtonText: "No",
+          reverseButtons: true,
+          customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
+            container: "my-swal",
+          },
         }).then((result) => {
-        if (result.isConfirmed) {
+          if (result.isConfirmed) {
             let timerInterval;
-            const Swal1 = Swal.mixin({
-                customClass: {
-                    container: 'my-swal'
-                },      
-                })
-            Swal1.fire({
-            title: 'Muchas gracias!',
-            html: 'Lo estamos redirigiendo. Aguarde...',
-            timer: 2000,
-            timerProgressBar: true,
-            didOpen: () => {
-                Swal.showLoading()
-                const b = Swal.getHtmlContainer().querySelector('b')
+            Swal.fire({
+              title: "Muchas gracias!",
+              html: "Lo estamos redirigiendo. Aguarde...",
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading();
+                const b = Swal.getHtmlContainer().querySelector("b");
                 timerInterval = setInterval(() => {
-                b.textContent = Swal.getTimerLeft()
-                }, 100)
-            },
-            willClose: () => {
-                let message = "Hola, quiero comprar: ";
-            carrito.forEach(product => {
-                message += `${product.name}  ${product.price.toLocaleString()}`;
-
-            });
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/+5493584224464?text=${encodedMessage}`;
-            window.location.href = whatsappUrl;
-            localStorage.removeItem('carrito')
-                clearInterval(timerInterval)
-            }
+                  b.textContent = Swal.getTimerLeft();
+                }, 100);
+              },
+              willClose: () => {
+                window.location.href = whatsappUrl;
+                localStorage.removeItem("carrito");
+                clearInterval(timerInterval);
+              },
+              customClass: {
+                container: "my-swal",
+              },
             }).then((result) => {
-            if (result.dismiss === Swal.DismissReason.timer) {
-                console.log('se cerro el timer')
-            }
-            })
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            swalWithBootstrapButtons.fire(
-            'Cancelado',
-            'La compra ha sido cancelada',
-            'error'
-            )
-        }
-        })
-    }
+              if (result.dismiss === Swal.DismissReason.timer) {
+                console.log("se cerro el timer");
+              }
+            });
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+              "Cancelado",
+              "La compra ha sido cancelada",
+              "error"
+            );
+          }
+        });
+      }
+      
+        
     window.addEventListener('load', function() {
         const showCartButton = document.querySelector('#show-cart-button');
         showCartButton.addEventListener('click', () => {
@@ -495,3 +508,127 @@ window.addEventListener("load", function () {
 
 //cotizacion de celulares:
 
+// Definir precios base para cada modelo de iPhone
+const prices = {
+    "iPhone 8": 200,
+    "iPhone 8 Plus": 230,
+    "iPhone X": 500,
+    "iPhone 11": 600,
+    "iPhone 11 Pro": 800,
+    "iPhone 11 Pro Max": 900,
+    "iPhone 12": 1000,
+    "iPhone 12 Pro": 1200,
+    "iPhone 12 Pro Max": 1300,
+    "iPhone 13": 1400,
+    "iPhone 13 Pro": 1600,
+    "iPhone 13 Pro Max": 1700,
+    "iPhone 14": 1800,
+    "iPhone 14 Plus": 2000,
+    "iPhone 14 Pro": 2200,
+    "iPhone 14 Pro Max": 2400
+    };
+    
+    // Obtener los elementos del DOM
+    const modelName = document.getElementById("product-name");
+    const memory = document.getElementById("product-mem");
+    const batteryCondition = document.getElementById("product-bat");
+    const quoteButton = document.getElementById("cotizar");
+    const quoteResult = document.getElementById("cotizacion");
+    
+    // Función para cotizar
+    function cotizar() {
+        // Obtener los valores seleccionados por el usuario
+        const model = modelName.value;
+        const memorySize = Number(memory.value);
+        const battery = Number(batteryCondition.value);
+    
+        // Obtener el precio base del modelo de iPhone
+        var priceUsd = prices[model];
+    
+        // Sumar 20 USD por cada 64 GB adicionales de memoria
+        priceUsd += Math.floor((memorySize - 64) / 64) * 20;
+    
+        // Reducir el precio según la condición de la batería
+        if (battery < 80) {
+        if (model.includes("iPhone 8") || model.includes("iPhone X")) {
+            priceUsd -= 30;
+        } else {
+            priceUsd -= 40;
+        }
+        } else if (battery < 90) {
+        if (model.includes("iPhone 8") || model.includes("iPhone X")) {
+            priceUsd -= 15;
+        } else {
+            priceUsd -= 30;
+        }
+        }
+        function getPriceInPesos(priceUsd) {
+            return getExchangeRate()
+            .then(exchangeRate => {
+                const price = (priceUsd / 100) * (exchangeRate + 300); //(price / 100) * (exchangeRate + 300)
+                return price;
+            });
+        }
+        // Obtener el precio en pesos
+        getPriceInPesos(priceUsd)
+        .then((price) => {
+            // Mostrar el resultado de la cotización al usuario con SweetAlert
+            const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger",
+            },
+            buttonsStyling: false,
+            });
+    
+            swalWithBootstrapButtons
+            .fire({
+                title: `El valor de su iPhone es: $${price.toLocaleString()} USD ${priceUsd}`,
+                html:
+                '<br><p style="font-size: 16px; font-weight: 500;">*La cotización está sujeta a revisión*</p>',
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Continuar",
+                cancelButtonText: "Cancelar",
+                reverseButtons: true,
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                // Agregar el producto al carrito
+                carrito.push({
+                    name: model,
+                    price: -price,
+                    
+                });showCart();
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+                const Swal1 = Swal.mixin({
+                    customClass: {
+                    container: "my-swal",
+                    },
+                });
+                Swal1.fire({
+                    position: "top-start",
+                    icon: "success",
+                    title: "Producto agregado al carrito",
+                    showConfirmButton: false,
+                    timer: 1000,
+                });
+                } else if (
+                result.dismiss === Swal.DismissReason.cancel ||
+                result.dismiss === Swal.DismissReason.backdrop
+                ) {
+                swalWithBootstrapButtons.fire(
+                    "Cancelado",
+                    "Su cotización no se guardo.",
+                    "error"
+                );
+                }
+            });
+        });
+    }
+    
+
+    
+    // Asignar la función cotizar al botón de cotización
+    quoteButton.addEventListener("click", cotizar);
+    
