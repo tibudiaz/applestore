@@ -173,7 +173,7 @@ function addProduct(name, price, bat, memoria, color, estado) {
         btnAgregarAlCarrito.classList.add("btn-comprar");
         btnAgregarAlCarrito.innerText = "Agregar al carrito";
         btnAgregarAlCarrito.addEventListener("click", () => {
-            addProductToCart(name, arsPrice);
+            addProductToCart(name, arsPrice, bat);
             showCart();
         });
         productContainer.appendChild(btnAgregarAlCarrito);
@@ -289,6 +289,8 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
         productListItem.classList.add('product-item');
         const productName = document.createElement('span');
         productName.innerText = product.name;
+        const productBat = document.createElement('span');
+        productBat.innerText = `Bateria: ${product.bat}%`;
         const productPrice = document.createElement('span');
         productPrice.innerText = `$${product.price.toLocaleString()}`;
         const deleteButton = document.createElement('button');
@@ -315,6 +317,7 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
             }
             });
             productListItem.appendChild(productName);
+            productListItem.appendChild(productBat);
             productListItem.appendChild(productPrice);
             productListItem.appendChild(deleteButton);
             cartList.appendChild(productListItem);
@@ -348,8 +351,8 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     cartContainer.appendChild(closeButton);
 }
 //agrega productos al carrito
-    function addProductToCart(name, price) {
-        carrito.push({ name: name, price: parseFloat(price) });
+    function addProductToCart(name, price, bat) {
+        carrito.push({ name: name, price: parseFloat(price), bat: bat});
         localStorage.setItem('carrito', JSON.stringify(carrito));
         const Swal1 = Swal.mixin({
             customClass: {
@@ -407,7 +410,7 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
           hasPositivePriceProduct
             ? carrito
                 .filter((product) => product.price > 0)
-                .map((product) => `${product.name}  ${product.price.toLocaleString()}`)
+                .map((product) => ` ${product.name} Precio: ${product.price.toFixed()}, Batería: ${product.bat}`)
                 .join(", ")
             : ""
         }${hasPositivePriceProduct && hasNegativePriceProduct ? ". " : ""}${
@@ -415,7 +418,7 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
             ? "Entregaría: " +
               carrito
                 .filter((product) => product.price < 0)
-                .map((product) => `${product.name} ${product.price.toLocaleString()}`)
+                .map((product) => `${product.name} ${product.price.toLocaleString()}, Batería: ${product.bat}`)
                 .join(", ")
             : ""
         }`;
@@ -511,21 +514,20 @@ window.addEventListener("load", function () {
 // Definir precios base para cada modelo de iPhone
 const prices = {
     "iPhone 8": 200,
-    "iPhone 8 Plus": 230,
-    "iPhone X": 500,
-    "iPhone 11": 600,
-    "iPhone 11 Pro": 800,
-    "iPhone 11 Pro Max": 900,
-    "iPhone 12": 1000,
-    "iPhone 12 Pro": 1200,
-    "iPhone 12 Pro Max": 1300,
-    "iPhone 13": 1400,
-    "iPhone 13 Pro": 1600,
-    "iPhone 13 Pro Max": 1700,
-    "iPhone 14": 1800,
-    "iPhone 14 Plus": 2000,
-    "iPhone 14 Pro": 2200,
-    "iPhone 14 Pro Max": 2400
+    "iPhone 8 Plus": 220,
+    "iPhone X": 250,
+    "iPhone 11": 390,
+    "iPhone 11 Pro": 450,
+    "iPhone 11 Pro Max": 500,
+    "iPhone 12": 480,
+    "iPhone 12 Pro": 630,
+    "iPhone 12 Pro Max": 680,
+    "iPhone 13": 650,
+    "iPhone 13 Pro": 850,
+    "iPhone 13 Pro Max": 950,
+    "iPhone 14": 780,
+    // "iPhone 14 Pro": 2200,
+    // "iPhone 14 Pro Max": 2400
     };
     
     // Obtener los elementos del DOM
@@ -553,7 +555,7 @@ const prices = {
         if (model.includes("iPhone 8") || model.includes("iPhone X")) {
             priceUsd -= 30;
         } else {
-            priceUsd -= 40;
+            priceUsd -= 60;
         }
         } else if (battery < 90) {
         if (model.includes("iPhone 8") || model.includes("iPhone X")) {
@@ -598,7 +600,7 @@ const prices = {
                 carrito.push({
                     name: model,
                     price: -price,
-                    
+                    bat: battery,
                 });showCart();
                 localStorage.setItem("carrito", JSON.stringify(carrito));
                 const Swal1 = Swal.mixin({
