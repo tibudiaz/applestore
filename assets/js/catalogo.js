@@ -503,7 +503,7 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 // Llamamos a la función loadProducts al cargar la página
 window.addEventListener("load", function () {
-    loadProducts();
+    loadProducts(), showCart();
 });
 
 //cotizacion de celulares:
