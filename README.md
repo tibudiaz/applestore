@@ -1,25 +1,49 @@
 # Local AI Hub
 
-Aplicación web **React** tipo chat (estilo GPT/Gemini) preparada para conectarse a una IA local ejecutándose en tu PC.
+Aplicación web **React** estilo ChatGPT para conectarte a una IA local y generar:
 
-## Qué incluye esta base inicial
+- Respuestas de texto.
+- Imágenes.
+- Videos.
 
-- Interfaz conversacional para consultas de texto.
-- Flujo inicial para solicitudes de generación de imagen.
-- Flujo inicial para solicitudes de generación de video.
-- Panel para configurar endpoint local y modelo principal.
-- Respuestas simuladas listas para reemplazar por tu backend local.
+También permite visualizar y descargar imágenes/videos generados en máxima calidad (`best`).
 
 ## Ejecutar en local
-
-Como esta primera versión usa módulos ESM por CDN, solo necesitas servir los archivos estáticos:
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Luego abre: `http://localhost:4173`
+Abrir: `http://localhost:4173`
 
-## Próximo paso recomendado
+## Endpoint esperado
 
-Conectar el botón **Enviar** a tu API local (por ejemplo, `http://localhost:8000/api/ai`) para enrutar prompts a tu modelo en la PC y devolver texto, imágenes o videos reales.
+La app envía peticiones `POST` al endpoint configurado (por defecto `http://localhost:8000/api/chat`) con este payload:
+
+```json
+{
+  "model": "local-gpu-model",
+  "mode": "text | image | video",
+  "prompt": "tu mensaje",
+  "quality": "best | high | medium",
+  "stream": false
+}
+```
+
+Respuesta sugerida de tu backend:
+
+```json
+{
+  "content": "texto de respuesta",
+  "assetUrl": "https://...",
+  "mimeType": "image/jpeg | video/mp4"
+}
+```
+
+## Archivos de colecciones
+
+Se crearon estos archivos base para que los completes:
+
+- `src/collections/endpoints.collection.json`
+- `src/collections/models.collection.json`
+- `src/collections/workflows.collection.json`

@@ -1,0 +1,13 @@
+{
+  "collection": "models",
+  "description": "Completa esta colección con tus modelos locales disponibles.",
+  "items": [
+    {
+      "id": "local-gpu-model",
+      "name": "Modelo principal",
+      "provider": "local",
+      "capabilities": ["text", "image", "video"],
+      "default": true
+    }
+  ]
+}
