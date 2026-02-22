@@ -1,0 +1,142 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: #f4f7ff;
+  background: #0f1423;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+}
+
+.settings-panel {
+  border-right: 1px solid #232a40;
+  padding: 1.5rem;
+  background: #121932;
+}
+
+.settings-panel h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  color: #a8b3d9;
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+  color: #d7def7;
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid #2e3959;
+  background: #171f39;
+  color: #eff2ff;
+  border-radius: 0.6rem;
+  padding: 0.65rem;
+  font-size: 0.95rem;
+}
+
+.status-chip {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #74c4ff;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.6rem;
+  background: rgba(64, 137, 255, 0.12);
+}
+
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.messages {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  overflow-y: auto;
+}
+
+.bubble {
+  max-width: 780px;
+  border: 1px solid #2a3557;
+  border-radius: 0.8rem;
+  padding: 0.9rem;
+}
+
+.bubble.user {
+  align-self: flex-end;
+  background: #283763;
+}
+
+.bubble.assistant {
+  align-self: flex-start;
+  background: #1a233f;
+}
+
+.bubble header {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  color: #a9b9ea;
+}
+
+.bubble p {
+  margin: 0.35rem 0 0;
+  line-height: 1.45;
+}
+
+.composer {
+  border-top: 1px solid #222d48;
+  padding: 1rem;
+  display: grid;
+  gap: 0.8rem;
+  background: #121932;
+}
+
+button {
+  justify-self: end;
+  border: none;
+  border-radius: 0.6rem;
+  background: #4577ff;
+  color: white;
+  padding: 0.7rem 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 960px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-panel {
+    border-right: 0;
+    border-bottom: 1px solid #232a40;
+  }
+}
