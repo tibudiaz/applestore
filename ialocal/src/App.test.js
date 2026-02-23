@@ -1,8 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders local ai interface', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /tu asistente inteligente/i })).toBeInTheDocument();
+
+  const modeSelector = screen.getByLabelText(/selector de modo/i);
+  expect(within(modeSelector).getByRole('button', { name: /chat/i })).toBeInTheDocument();
+  expect(within(modeSelector).getByRole('button', { name: /imagen/i })).toBeInTheDocument();
+  expect(within(modeSelector).getByRole('button', { name: /video/i })).toBeInTheDocument();
 });
