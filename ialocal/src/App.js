@@ -2,9 +2,9 @@ import { useMemo, useState } from 'react';
 import './App.css';
 
 const MODES = [
-  { id: 'chat', label: 'Chat', emoji: '💬', description: 'Conversación natural con tu IA local.' },
-  { id: 'image', label: 'Imagen', emoji: '🖼️', description: 'Generación de imágenes desde un prompt.' },
-  { id: 'video', label: 'Video', emoji: '🎬', description: 'Creación de video guiada por texto.' },
+  { id: 'chat', label: 'Chat', emoji: '💬', description: 'Conversación natural con contexto continuo.' },
+  { id: 'image', label: 'Imagen', emoji: '🖼️', description: 'Generación visual cinematográfica desde texto.' },
+  { id: 'video', label: 'Video', emoji: '🎬', description: 'Storyboard y clips guiados por tu prompt.' },
 ];
 
 const DEFAULT_ENDPOINT = process.env.REACT_APP_LOCAL_AI_URL || 'http://127.0.0.1:8080/api/generate';
@@ -35,14 +35,13 @@ const toMediaUrl = (payload) => {
 
 function App() {
   const [mode, setMode] = useState('chat');
-  const [endpoint, setEndpoint] = useState(DEFAULT_ENDPOINT);
   const [prompt, setPrompt] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const canSend = prompt.trim().length > 0 && endpoint.trim().length > 0 && !loading;
+  const canSend = prompt.trim().length > 0 && !loading;
 
   const selectedMode = useMemo(
     () => MODES.find((item) => item.id === mode) || MODES[0],
@@ -67,7 +66,7 @@ function App() {
     setResult(null);
 
     try {
-      const response = await fetch(endpoint.trim(), {
+      const response = await fetch(DEFAULT_ENDPOINT.trim(), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -107,17 +106,32 @@ function App() {
 
   return (
     <div className="app-shell">
-      <div className="aurora aurora-a" />
-      <div className="aurora aurora-b" />
+      <div className="bg-mesh bg-mesh-a" />
+      <div className="bg-mesh bg-mesh-b" />
+      <div className="noise-layer" />
 
       <main className="main-card">
         <header className="hero">
-          <span className="badge">Local AI + Firebase</span>
-          <h1>Tu asistente inteligente, desde cualquier lugar</h1>
+          <span className="badge">Private Endpoint · Local AI</span>
+          <h1>Una experiencia premium para conversar y crear con tu IA</h1>
           <p>
-            Esta interfaz se despliega en Firebase, pero envía tus peticiones a la IA local de tu PC.
-            Elige si quieres conversar, generar una imagen o pedir un video.
+            El endpoint ahora está protegido y no es editable desde la interfaz.
+            Puedes chatear de forma continua (con historial), o cambiar a imagen/video para generar contenido creativo.
           </p>
+          <div className="hero-stats">
+            <article>
+              <strong>100% Chat real</strong>
+              <span>Conserva contexto de mensajes previos.</span>
+            </article>
+            <article>
+              <strong>Seguro por diseño</strong>
+              <span>Endpoint oculto en configuración interna.</span>
+            </article>
+            <article>
+              <strong>Modo Studio</strong>
+              <span>Interfaz inspirada en productos top de internet.</span>
+            </article>
+          </div>
         </header>
 
         <section className="mode-grid" aria-label="selector de modo">
@@ -136,14 +150,6 @@ function App() {
         </section>
 
         <form onSubmit={sendRequest} className="control-panel">
-          <label htmlFor="endpoint">Endpoint de tu IA local</label>
-          <input
-            id="endpoint"
-            value={endpoint}
-            onChange={(event) => setEndpoint(event.target.value)}
-            placeholder="http://127.0.0.1:8080/api/generate"
-          />
-
           <label htmlFor="prompt">Prompt para {selectedMode.label.toLowerCase()}</label>
           <textarea
             id="prompt"
@@ -154,29 +160,49 @@ function App() {
           />
 
           <button type="submit" disabled={!canSend}>
-            {loading ? 'Conectando con IA local...' : `Enviar en modo ${selectedMode.label}`}
+            {loading ? 'Procesando solicitud...' : `Enviar en modo ${selectedMode.label}`}
           </button>
         </form>
 
         {error && <p className="feedback error">{error}</p>}
 
-        {mode === 'chat' && chatHistory.length > 0 && (
+        {mode === 'chat' && (
           <section className="results-box">
-            <h2>Conversación</h2>
+            <div className="results-head">
+              <h2>Conversación</h2>
+              <span className="results-chip">Historial activo</span>
+            </div>
             <div className="chat-flow">
+              {chatHistory.length === 0 && (
+                <article className="bubble assistant empty-state">
+                  <span>IA local</span>
+                  <p>Estoy lista para conversar. Escribe tu primer mensaje y te responderé como un chat continuo.</p>
+                </article>
+              )}
+
               {chatHistory.map((message, index) => (
                 <article key={`${message.role}-${index}`} className={`bubble ${message.role}`}>
                   <span>{message.role === 'user' ? 'Tú' : 'IA local'}</span>
                   <p>{message.content}</p>
                 </article>
               ))}
+
+              {loading && (
+                <article className="bubble assistant typing">
+                  <span>IA local</span>
+                  <p>Escribiendo...</p>
+                </article>
+              )}
             </div>
           </section>
         )}
 
         {result && mode !== 'chat' && (
           <section className="results-box">
-            <h2>Resultado de {selectedMode.label}</h2>
+            <div className="results-head">
+              <h2>Resultado de {selectedMode.label}</h2>
+              <span className="results-chip">Generación completada</span>
+            </div>
 
             {result.mediaUrl && mode === 'image' && (
               <img src={result.mediaUrl} alt="Generación creada por IA local" className="media-preview" />
